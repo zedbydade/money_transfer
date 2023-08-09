@@ -8,25 +8,46 @@ defmodule UserTest do
     Ecto.Adapters.SQL.Sandbox.mode(MoneyTransfer.Repo, {:shared, self()})
   end
 
-  test "insert_user/1 should return an error when invalid params are provied" do
-    params = %{
-      first_name: "Test",
-      last_name: "Test" 
-    }
+  describe "when params are valid" do 
+    test "should return an :ok tuple when calling insert_user/1" do 
+      params = %{
+        first_name: "Test",
+        last_name: "Test", 
+        cpf: "810.631.740-40"
+      }
 
-    {:error, changeset} = User.insert_user(params)
+      assert {:ok, %User{}} = User.insert_user(params)
+    end
+  end
 
-    expected_error = {"can't be blank", [validation: :required]}
-    assert %Changeset{errors: [cpf: ^expected_error]} = changeset
-  end 
+  describe "when params are invalid" do 
 
-  test "insert_user/1 should return :ok tuple when valid params are provided" do 
-    params = %{
-      first_name: "Test",
-      last_name: "Test", 
-      cpf: "cpf"
-    }
+    test "should return an error when calling insert_user/1, and cpf is missing" do
+      params = %{
+        first_name: "Test",
+        last_name: "Test" 
+      }
 
-    assert {:ok, %User{}} = User.insert_user(params)
+      {:error, changeset} = User.insert_user(params)
+
+      expected_error = {"can't be blank", [validation: :required]}
+      assert %Changeset{errors: [cpf: ^expected_error]} = changeset
+    end 
+
+    test "should return an error when calling insert_user/1, and cpf is present but invalid" do
+      params = %{
+        first_name: "Test",
+        last_name: "Test", 
+        cpf: "Not A Cpf"
+      }
+
+      {:error, changeset} = User.insert_user(params)
+
+      expected_format_error = {"has invalid format", [validation: :format]} 
+      expected_length_error = {"should be %{count} character(s)",
+        [count: 14, validation: :length, kind: :is, type: :string]}
+      assert %Changeset{errors: [cpf: ^expected_length_error, cpf: ^expected_format_error]} = changeset
+    end 
+
   end
 end
