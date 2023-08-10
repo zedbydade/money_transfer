@@ -9,6 +9,7 @@ defmodule MoneyTransfer.User do
     field :first_name, :string
     field :last_name, :string
     field :cpf, :string
+    has_many :transaction, MoneyTransfer.Transaction
 
     timestamps()
   end
