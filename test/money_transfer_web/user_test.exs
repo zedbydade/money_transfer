@@ -1,5 +1,6 @@
 defmodule UserTest do
   use ExUnit.Case 
+  import UserMock
 
   alias Ecto.Changeset 
   alias MoneyTransfer.User 
@@ -10,13 +11,9 @@ defmodule UserTest do
 
   describe "when params are valid" do 
     test "should return an :ok tuple when calling insert_user/1" do 
-      params = %{
-        first_name: "Test",
-        last_name: "Test", 
-        cpf: "810.631.740-40"
-      }
-
-      assert {:ok, %User{}} = User.insert_user(params)
+      user = UserMock.create_user
+      
+      assert {:ok, %User{}} = create_user
     end
   end
 
