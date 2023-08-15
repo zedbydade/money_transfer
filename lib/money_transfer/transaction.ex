@@ -1,9 +1,11 @@
-defmodule TransferMoney.Transaction do 
+defmodule MoneyTransfer.Transaction do 
   use Ecto.Schema 
+  alias MoneyTransfer.Transaction
+  import Ecto.Changeset
 
   schema "transactions" do 
     field :amount, :integer 
-    belongs_to :user, MoneyTransfer.Movie
+    belongs_to :user, MoneyTransfer.User
   end
 
   def changeset(transaction, attrs) do 
