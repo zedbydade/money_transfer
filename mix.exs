@@ -19,13 +19,14 @@ defmodule MoneyTransfer.MixProject do
   def application do
     [
       mod: {MoneyTransfer.Application, []},
+      elixirc_paths: elixirc_paths(:test),
       extra_applications: [:logger, :runtime_tools]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   # Specifies your project dependencies.
   #
