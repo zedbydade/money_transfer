@@ -13,7 +13,7 @@ defmodule UserTest do
     test "should return an :ok tuple when calling insert_user/1" do 
       user = UserMock.create_user
       
-      assert {:ok, %User{}} = create_user
+      assert {:ok, %User{}} = user
     end
   end
 
