@@ -9,8 +9,7 @@ defmodule TransactionMock do
 
     params = %{
       sender_id: 1,
-      receiver_id: 1,
-      amount: '100'
+      receiver_id: 1
     }
 
     Transaction.insert_transaction(params)
