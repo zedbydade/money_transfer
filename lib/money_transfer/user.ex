@@ -1,6 +1,7 @@
 defmodule MoneyTransfer.User do
   use Ecto.Schema
   alias MoneyTransfer.User 
+  alias MoneyTransfer.Transaction
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -9,7 +10,8 @@ defmodule MoneyTransfer.User do
     field :first_name, :string
     field :last_name, :string
     field :cpf, :string
-    has_many :transaction, MoneyTransfer.Transaction
+    has_many :sender_transaction, Transaction, foreign_key: :sender_id
+    has_many :receiver_transaction, Transaction, foreign_key: :receiver_id
 
     timestamps()
   end
