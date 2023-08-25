@@ -1,8 +1,5 @@
 defmodule TransactionTest do 
   use ExUnit.Case 
-  import UserMock
-
-  alias Ecto.Changeset 
   alias MoneyTransfer.Transaction
 
   setup do :ok = Ecto.Adapters.SQL.Sandbox.checkout(MoneyTransfer.Repo)
@@ -12,6 +9,12 @@ defmodule TransactionTest do
   describe "when params are valid" do 
     test "should return an :ok tuple when calling insert_transaction/1" do 
       transaction = TransactionMock.create_transaction
+
+      assert {:ok, %Transaction{}} = transaction
+    end
+
+    test "should return an error when calling insert_transaction/1 with the same user" do 
+      transaction = TransactionMock.create_transaction_with_equal_users
 
       assert {:ok, %Transaction{}} = transaction
     end
