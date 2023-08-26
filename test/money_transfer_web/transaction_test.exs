@@ -21,5 +21,12 @@ defmodule TransactionTest do
       expected_error = {"The receiver cannot be the sender.", []}
       assert %Changeset{errors: [receiver_id: ^expected_error]} = changeset
     end
+
+    test "should return an error when calling insert_transaction/1 with a cashless sender" do
+      {:error, changeset} = TransactionMock.create_transaction_with_cashless_sender()
+
+      expected_error = {"The sender doesn't have balance to make that transaction.", []}
+      assert %Changeset{errors: [amount: ^expected_error]} = changeset
+    end
   end
 end
