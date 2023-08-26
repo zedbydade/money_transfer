@@ -1,5 +1,5 @@
 defmodule MoneyTransfer.RepoCase do
-  use ExUnit.CaseTemplate 
+  use ExUnit.CaseTemplate
 
   using do
     quote do
@@ -19,5 +19,5 @@ defmodule MoneyTransfer.RepoCase do
     Ecto.Adapters.SQL.Sandbox.mode(MoneyTransfer.Repo, {:shared, self()})
 
     :ok
-  end 
+  end
 end

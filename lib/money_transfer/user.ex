@@ -1,6 +1,6 @@
 defmodule MoneyTransfer.User do
   use Ecto.Schema
-  alias MoneyTransfer.User 
+  alias MoneyTransfer.User
   alias MoneyTransfer.Transaction
   import Ecto.Changeset
 
@@ -28,9 +28,9 @@ defmodule MoneyTransfer.User do
     |> validate_length(:cpf, is: 14)
   end
 
-  def insert_user(attrs) do 
+  def insert_user(attrs) do
     %User{}
     |> changeset(attrs)
-    |> MoneyTransfer.Repo.insert
+    |> MoneyTransfer.Repo.insert()
   end
 end
