@@ -12,7 +12,7 @@ defmodule UserMock do
   end
 
   def create_user do
-    params = %{first_name: "Test", last_name: "Test", cpf: "810.631.740-#{Enum.random(10..99)}"}
+    params = %{first_name: "Test", last_name: "Test", cpf: "810.631.740-#{Enum.random(10..99)}", balance: 0}
 
     User.insert_user(params)
   end
