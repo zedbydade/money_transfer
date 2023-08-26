@@ -1,10 +1,10 @@
-defmodule TransactionMock do 
+defmodule TransactionMock do
   import UserMock
 
   alias MoneyTransfer.Transaction
 
-  def create_transaction_with_equal_users do 
-    {:ok, sender} = UserMock.create_user
+  def create_transaction_with_equal_users do
+    {:ok, sender} = UserMock.create_user()
 
     params = %{
       sender_id: sender.id,
@@ -15,9 +15,9 @@ defmodule TransactionMock do
     create_transaction(params)
   end
 
-  def create_transaction do 
-    {:ok, sender} = UserMock.create_user
-    {:ok, receiver} = UserMock.create_user
+  def create_transaction do
+    {:ok, sender} = UserMock.create_user()
+    {:ok, receiver} = UserMock.create_user()
 
     params = %{
       sender_id: sender.id,

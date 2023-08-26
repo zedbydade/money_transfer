@@ -1,22 +1,25 @@
-defmodule TransactionTest do 
-  use ExUnit.Case 
+defmodule TransactionTest do
+  use ExUnit.Case
+  alias Ecto.Changeset
   alias MoneyTransfer.Transaction
 
-  setup do :ok = Ecto.Adapters.SQL.Sandbox.checkout(MoneyTransfer.Repo)
+  setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(MoneyTransfer.Repo)
     Ecto.Adapters.SQL.Sandbox.mode(MoneyTransfer.Repo, {:shared, self()})
   end
 
-  describe "when params are valid" do 
-    test "should return an :ok tuple when calling insert_transaction/1" do 
-      transaction = TransactionMock.create_transaction
+  describe "when params are valid" do
+    test "should return an :ok tuple when calling insert_transaction/1" do
+      transaction = TransactionMock.create_transaction()
 
       assert {:ok, %Transaction{}} = transaction
     end
 
-    test "should return an error when calling insert_transaction/1 with the same user" do 
-      transaction = TransactionMock.create_transaction_with_equal_users
+    test "should return an error when calling insert_transaction/1 with the same user" do
+      {:error, changeset} = TransactionMock.create_transaction_with_equal_users()
 
-      assert {:ok, %Transaction{}} = transaction
+      expected_error = {"The receiver cannot be the sender.", []}
+      assert %Changeset{errors: [receiver_id: ^expected_error]} = changeset
     end
   end
 end
