@@ -29,9 +29,9 @@ defmodule MoneyTransfer.Transaction do
 
   def validate_sender(changeset) do 
     sender = Repo.get!(User, get_change(changeset, :sender_id)) 
-    balance = sender.balance / 1000
+    balance = sender.balance / 100
     amount = Integer.parse(get_change(changeset, :amount)) 
-    valid? = balance >= amount
+    valid? = balance >= elem(amount, 0)
     if valid?,
       do: changeset,
       else: add_error(changeset, :amount, "The sender doesn't have balance to make that transaction.")
