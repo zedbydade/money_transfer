@@ -4,8 +4,10 @@ defmodule TransactionMock do
   alias MoneyTransfer.Transaction
 
   def create_transaction_with_cashless_sender do
-    {:ok, sender} = UserMock.create_user()
+    {:ok, sender} = UserMock.create_cashless_user()
     {:ok, receiver} = UserMock.create_user()
+
+    IO.inspect(receiver)
 
     params = %{
       sender_id: sender.id,

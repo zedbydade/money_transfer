@@ -21,7 +21,8 @@ defmodule UserTest do
     test "should return an error when calling insert_user/1, and cpf is missing" do
       params = %{
         first_name: "Test",
-        last_name: "Test"
+        last_name: "Test", 
+        balance: "10000"
       }
 
       {:error, changeset} = User.insert_user(params)
@@ -34,7 +35,8 @@ defmodule UserTest do
       params = %{
         first_name: "Test",
         last_name: "Test",
-        cpf: "Not A Cpf"
+        cpf: "Not A Cpf", 
+        balance: "10000"
       }
 
       {:error, changeset} = User.insert_user(params)
